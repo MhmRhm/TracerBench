@@ -15,10 +15,15 @@ LTTNG_UST_TRACEPOINT_EVENT(demo_app, function_call_tracepoint,
                            LTTNG_UST_TP_FIELDS(lttng_ust_field_string(
                                function_name_field, function_name)))
 
-LTTNG_UST_TRACEPOINT_EVENT(demo_app, performance_tracepoint,
-                           LTTNG_UST_TP_ARGS(int, performance),
+LTTNG_UST_TRACEPOINT_EVENT(demo_app, prime_number_tracepoint,
+                           LTTNG_UST_TP_ARGS(unsigned int, number),
                            LTTNG_UST_TP_FIELDS(lttng_ust_field_integer(
-                               int, performance_field, performance)))
+                               unsigned int, number_field, number)))
+
+LTTNG_UST_TRACEPOINT_EVENT(demo_app, performance_tracepoint,
+                           LTTNG_UST_TP_ARGS(unsigned int, performance),
+                           LTTNG_UST_TP_FIELDS(lttng_ust_field_integer(
+                               unsigned int, performance_field, performance)))
 
 #endif /* _TRACE_POINTS_H */
 
