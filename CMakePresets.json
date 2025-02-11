@@ -264,32 +264,12 @@
 			"configuration": "Debug"
 		},
 		{
-			"name": "linux-default-debug-doxygen",
-			"inherits": "linux-default-debug",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
-		},
-		{
-			"name": "linux-default-debug-coverage",
-			"inherits": "linux-default-debug",
-			"targets": ["coverage-google_test_libsee"]
-		},
-		{
-			"name": "linux-default-debug-memcheck",
-			"inherits": "linux-default-debug",
-			"targets": ["memcheck-google_test_libsee"]
-		},
-		{
 			"name": "linux-default-release",
 			"jobs": 10,
 			"displayName": "Linux Release",
 			"description": "release build type",
 			"configurePreset": "linux-default-release",
 			"configuration": "Release"
-		},
-		{
-			"name": "linux-default-release-doxygen",
-			"inherits": "linux-default-release",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
 		},
 		{
 			"name": "windows-default-debug",
@@ -300,22 +280,12 @@
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-default-debug-doxygen",
-			"inherits": "windows-default-debug",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
-		},
-		{
 			"name": "windows-default-release",
 			"jobs": 10,
 			"displayName": "Windows Release",
 			"description": "release build type",
 			"configurePreset": "windows-default-release",
 			"configuration": "Release"
-		},
-		{
-			"name": "windows-default-release-doxygen",
-			"inherits": "windows-default-release",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
 		},
 		{
 			"name": "windows-x86-debug",
@@ -326,22 +296,12 @@
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-x86-debug-doxygen",
-			"inherits": "windows-x86-debug",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
-		},
-		{
 			"name": "windows-x86-release",
 			"jobs": 10,
 			"displayName": "Windows x86 Release",
 			"description": "release build type",
 			"configurePreset": "windows-x86-release",
 			"configuration": "Release"
-		},
-		{
-			"name": "windows-x86-release-doxygen",
-			"inherits": "windows-x86-release",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
 		},
 		{
 			"name": "windows-clang-debug",
@@ -352,27 +312,12 @@
 			"configuration": "Debug"
 		},
 		{
-			"name": "windows-clang-debug-doxygen",
-			"inherits": "windows-clang-debug",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
-		},
-		{
-			"name": "windows-clang-debug-coverage",
-			"inherits": "windows-clang-debug",
-			"targets": ["coverage-google_test_libsee"]
-		},
-		{
 			"name": "windows-clang-release",
 			"jobs": 10,
 			"displayName": "Windows Clang Release",
 			"description": "release build type",
 			"configurePreset": "windows-clang-release",
 			"configuration": "Release"
-		},
-		{
-			"name": "windows-clang-release-doxygen",
-			"inherits": "windows-clang-release",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
 		},
 		{
 			"name": "mac-default-debug",
@@ -383,27 +328,12 @@
 			"configuration": "Debug"
 		},
 		{
-			"name": "mac-default-debug-doxygen",
-			"inherits": "mac-default-debug",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
-		},
-		{
-			"name": "mac-default-debug-coverage",
-			"inherits": "mac-default-debug",
-			"targets": ["coverage-google_test_libsee"]
-		},
-		{
 			"name": "mac-default-release",
 			"jobs": 10,
 			"displayName": "Mac Release",
 			"description": "release build type",
 			"configurePreset": "mac-default-release",
 			"configuration": "Release"
-		},
-		{
-			"name": "mac-default-release-doxygen",
-			"inherits": "mac-default-release",
-			"targets": ["doxygen-libsee_static", "doxygen-terminal_see_static"]
 		}
 	],
 	"testPresets": [
@@ -468,69 +398,6 @@
 			"configurePreset": "mac-default-release"
 		}
 	],
-	"packagePresets": [
-		{
-			"name": "linux-deb",
-			"description": "linux deb packaging",
-			"displayName": "Linux DEB",
-			"configurePreset": "linux-default-release",
-			"generators": ["DEB"],
-			"configurations": ["Release"],
-			"vendorName": "Mohammad Rahimi",
-			"packageDirectory": "package-linux-deb",
-			"environment": {
-				"CPACK_DEBIAN_PACKAGE_NAME": "SeeMake",
-				"CPACK_DEBIAN_FILE_NAME": "DEB-DEFAULT"
-			}
-		},
-		{
-			"name": "windows-nsis",
-			"hidden": true,
-			"generators": ["NSIS"],
-			"configurations": ["Release"],
-			"vendorName": "Mohammad Rahimi",
-			"packageDirectory": "package-windows-nsis",
-			"environment": {
-				"CPACK_NSIS_DISPLAY_NAME": "SeeMake",
-				"CPACK_NSIS_PACKAGE_NAME": "SeeMake",
-				"CPACK_NSIS_URL_INFO_ABOUT": "https://github.com/MhmRhm"
-			}
-		},
-		{
-			"name": "windows-default-nsis",
-			"inherits": "windows-nsis",
-			"displayName": "Windows Default NSIS",
-			"description": "windows nsis packaging",
-			"configurePreset": "windows-default-release"
-		},
-		{
-			"name": "windows-x86-nsis",
-			"inherits": "windows-nsis",
-			"displayName": "Windows x86 NSIS",
-			"description": "windows nsis packaging",
-			"configurePreset": "windows-x86-release"
-		},
-		{
-			"name": "windows-clang-nsis",
-			"inherits": "windows-nsis",
-			"displayName": "Windows Clang NSIS",
-			"description": "windows nsis packaging",
-			"configurePreset": "windows-clang-release"
-		},
-		{
-			"name": "mac-dragndrop",
-			"description": "mac drag and drop packaging",
-			"displayName": "Mac DragNDrop",
-			"configurePreset": "mac-default-release",
-			"generators": ["DragNDrop"],
-			"configurations": ["Release"],
-			"vendorName": "Mohammad Rahimi",
-			"packageDirectory": "package-mac-dragndrop",
-			"environment": {
-				"CPACK_PACKAGE_NAME": "SeeMake"
-			}
-		}
-	],
 	"workflowPresets": [
 		{
 			"name": "linux-default-debug",
@@ -581,10 +448,6 @@
 				{
 					"type": "build",
 					"name": "linux-default-release-doxygen"
-				},
-				{
-					"type": "package",
-					"name": "linux-deb"
 				}
 			]
 		},
@@ -629,10 +492,6 @@
 				{
 					"type": "build",
 					"name": "windows-default-release-doxygen"
-				},
-				{
-					"type": "package",
-					"name": "windows-default-nsis"
 				}
 			]
 		},
@@ -677,10 +536,6 @@
 				{
 					"type": "build",
 					"name": "windows-x86-release-doxygen"
-				},
-				{
-					"type": "package",
-					"name": "windows-x86-nsis"
 				}
 			]
 		},
@@ -729,10 +584,6 @@
 				{
 					"type": "build",
 					"name": "windows-clang-release-doxygen"
-				},
-				{
-					"type": "package",
-					"name": "windows-clang-nsis"
 				}
 			]
 		},
@@ -781,10 +632,6 @@
 				{
 					"type": "build",
 					"name": "mac-default-release-doxygen"
-				},
-				{
-					"type": "package",
-					"name": "mac-dragndrop"
 				}
 			]
 		}

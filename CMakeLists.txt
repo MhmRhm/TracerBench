@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25.0)
 
-project(SeeMake VERSION 0.0.0 LANGUAGES CXX)
+project(Tracer VERSION 0.0.0 LANGUAGES C CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -18,5 +18,3 @@ include(Format)
 add_subdirectory(src bin)
 add_subdirectory(test)
 add_subdirectory(benchmark)
-
-include(Install)
