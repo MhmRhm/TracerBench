@@ -10,7 +10,6 @@ public:
 private:
   const char *functionName;
 };
-
 using Page = std::array<unsigned int, 1000>;
 bool isPrime(unsigned int number);
 Page createNumbers();

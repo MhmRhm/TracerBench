@@ -44,10 +44,8 @@ int countPrimes(const Page &page) {
   for (auto itr{page.cbegin()}; itr < page.cend(); itr += 1) {
     bool prime{isPrime(*itr)};
     lttng_ust_tracepoint(demo_app, prime_number_tracepoint, *itr, prime);
-    if (prime) {
-      prime = true;
+    if (prime)
       count += 1;
-    }
   }
   return count;
 }

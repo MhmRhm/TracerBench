@@ -17,6 +17,7 @@ queue<Page> workQueue;
 condition_variable cv;
 atomic<bool> done{false};
 atomic<int> totalPrimeCount{0};
+atomic<int> totalNumberCount{0};
 
 void producer() {
   Tracer tracer(__func__);
@@ -42,6 +43,7 @@ void consumer() {
       Page page = workQueue.front();
       workQueue.pop();
       lock.unlock();
+      totalNumberCount += page.size();
       totalPrimeCount += countPrimes(page);
     }
   }
@@ -65,6 +67,7 @@ int main() {
   }
 
   locale::global(locale{"en_US.UTF-8"});
+  cout << format("Total number count: {:L}\n", totalNumberCount.load());
   cout << format("Total prime count: {:L}\n", totalPrimeCount.load());
   return 0;
 }
