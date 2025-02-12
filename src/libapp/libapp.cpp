@@ -6,6 +6,13 @@ namespace {
 std::random_device device{};
 } // namespace
 
+Tracer::Tracer(const char *name) : functionName{name} {
+  lttng_ust_tracepoint(demo_app, function_entry_tracepoint, functionName);
+}
+Tracer::~Tracer() {
+  lttng_ust_tracepoint(demo_app, function_exit_tracepoint, functionName);
+}
+
 bool isPrime(unsigned int number) {
   if (number <= 1)
     return false;
@@ -23,7 +30,7 @@ bool isPrime(unsigned int number) {
 }
 
 Page createNumbers() {
-  lttng_ust_tracepoint(demo_app, function_call_tracepoint, __func__);
+  Tracer tracer(__func__);
   Page page{};
   for (auto itr{page.begin()}; itr < page.end(); itr += 1) {
     *itr = device();
@@ -32,13 +39,15 @@ Page createNumbers() {
 }
 
 int countPrimes(const Page &page) {
-  lttng_ust_tracepoint(demo_app, function_call_tracepoint, __func__);
+  Tracer tracer(__func__);
   int count{};
-  for (auto itr{page.cbegin()}; itr < page.cend(); itr += 1)
-    if (isPrime(*itr)) {
-      lttng_ust_tracepoint(demo_app, prime_number_tracepoint, *itr);
-      // std::cerr << *itr << std::endl;
+  for (auto itr{page.cbegin()}; itr < page.cend(); itr += 1) {
+    bool prime{isPrime(*itr)};
+    lttng_ust_tracepoint(demo_app, prime_number_tracepoint, *itr, prime);
+    if (prime) {
+      prime = true;
       count += 1;
     }
+  }
   return count;
 }

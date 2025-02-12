@@ -19,8 +19,8 @@ atomic<bool> done{false};
 atomic<int> totalPrimeCount{0};
 
 void producer() {
+  Tracer tracer(__func__);
   while (!done) {
-    lttng_ust_tracepoint(demo_app, function_call_tracepoint, __func__);
     Page page = createNumbers();
     {
       lock_guard<mutex> lock(mtx);
@@ -34,8 +34,8 @@ void producer() {
 }
 
 void consumer() {
+  Tracer tracer(__func__);
   while (!done) {
-    lttng_ust_tracepoint(demo_app, function_call_tracepoint, __func__);
     unique_lock<mutex> lock(mtx);
     cv.wait(lock, [] { return !workQueue.empty() || done; });
     if (!workQueue.empty()) {
@@ -48,6 +48,7 @@ void consumer() {
 }
 
 int main() {
+  Tracer tracer(__func__);
   thread producerThread(producer);
   vector<thread> consumerThreads;
   for (int i{}; i < 4; i += 1) {
@@ -63,6 +64,7 @@ int main() {
     t.join();
   }
 
-  lttng_ust_tracepoint(demo_app, performance_tracepoint, totalPrimeCount);
+  locale::global(locale{"en_US.UTF-8"});
+  cout << format("Total prime count: {:L}\n", totalPrimeCount.load());
   return 0;
 }
