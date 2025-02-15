@@ -1,17 +1,11 @@
 #include "libapp/libapp.h"
+#include "libtracer/call_tracer.h"
 #include "libtracer/trace_points.h"
 #include <math.h>
 
 namespace {
 std::random_device device{};
 } // namespace
-
-Tracer::Tracer(const char *name) : functionName{name} {
-  lttng_ust_tracepoint(demo_app, function_entry_tracepoint, functionName);
-}
-Tracer::~Tracer() {
-  lttng_ust_tracepoint(demo_app, function_exit_tracepoint, functionName);
-}
 
 bool isPrime(unsigned int number) {
   if (number <= 1)
@@ -30,7 +24,7 @@ bool isPrime(unsigned int number) {
 }
 
 Page createNumbers() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   Page page{};
   for (auto itr{page.begin()}; itr < page.end(); itr += 1) {
     *itr = device();
@@ -39,7 +33,7 @@ Page createNumbers() {
 }
 
 int countPrimes(const Page &page) {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   int count{};
   for (auto itr{page.cbegin()}; itr < page.cend(); itr += 1) {
     bool prime{isPrime(*itr)};

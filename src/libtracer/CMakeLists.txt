@@ -1,5 +1,6 @@
 add_library(libtracer SHARED
-	trace_points.c
+	trace_points.cpp
+	call_tracer.cpp
 )
 
 target_compile_options(libtracer

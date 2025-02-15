@@ -141,12 +141,12 @@ LTTNG_UST_TRACEPOINT_EVENT(demo_app, function_exit_tracepoint,
 I have used them in the constructor and destructor of a class:
 
 ```cpp
-class Tracer {
+class CallTracer {
 public:
-  Tracer(const char *name) : functionName{name} {
+  CallTracer(const char *name) : functionName{name} {
     lttng_ust_tracepoint(demo_app, function_entry_tracepoint, functionName);
   }
-  ~Tracer() {
+  ~CallTracer() {
     lttng_ust_tracepoint(demo_app, function_exit_tracepoint, functionName);
   }
 
@@ -162,21 +162,21 @@ easily look at the sequence of function calls and pinpoint the issue.
 
 ```cpp
 Page createNumbers() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   Page page{};
   ...
   return page;
 }
 
 void producer() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   while (!done) {
     ...
   }
 }
 
 void consumer() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   while (!done) {
     ...
   }

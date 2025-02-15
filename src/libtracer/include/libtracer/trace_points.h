@@ -14,12 +14,12 @@ LTTNG_UST_TRACEPOINT_EVENT(demo_app, function_entry_tracepoint,
                            LTTNG_UST_TP_ARGS(const char *, function_name),
                            LTTNG_UST_TP_FIELDS(lttng_ust_field_string(
                                function_name_field, function_name)))
-
+// cppcheck-suppress unknownMacro
 LTTNG_UST_TRACEPOINT_EVENT(demo_app, function_exit_tracepoint,
                            LTTNG_UST_TP_ARGS(const char *, function_name),
                            LTTNG_UST_TP_FIELDS(lttng_ust_field_string(
                                function_name_field, function_name)))
-
+// cppcheck-suppress unknownMacro
 LTTNG_UST_TRACEPOINT_EVENT(
     demo_app, prime_number_tracepoint,
     LTTNG_UST_TP_ARGS(unsigned int, number, bool, is_prime),

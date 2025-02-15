@@ -1,4 +1,5 @@
 #include "libapp/libapp.h"
+#include "libtracer/call_tracer.h"
 #include "libtracer/trace_points.h"
 #include <atomic>
 #include <condition_variable>
@@ -20,7 +21,7 @@ atomic<int> totalPrimeCount{0};
 atomic<int> totalNumberCount{0};
 
 void producer() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   while (!done) {
     Page page = createNumbers();
     {
@@ -35,7 +36,7 @@ void producer() {
 }
 
 void consumer() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   while (!done) {
     unique_lock<mutex> lock(mtx);
     cv.wait(lock, [] { return !workQueue.empty() || done; });
@@ -50,7 +51,7 @@ void consumer() {
 }
 
 int main() {
-  Tracer tracer(__func__);
+  CallTracer callTracer(__func__);
   thread producerThread(producer);
   vector<thread> consumerThreads;
   for (int i{}; i < 4; i += 1) {
